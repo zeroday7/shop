@@ -1,12 +1,39 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import vo.*;
-import commons.*;
+import commons.DBUtil;
+import vo.Member;
 
 
 public class MemberDao {
+	
+	// [관리자] 회원목록출력 <-- 검색기능 추가
+	public ArrayList<Member> selectMemberListAllByPage(int beginRow, int rowPerPage) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		/*
+		 SELECT 
+		 	member_no memberNo,
+		 	member_id memberId,
+		 	member_level memberLevel,
+		 	member_name memberName,
+		 	member_age memberAge,
+		 	member_gender memberGender,
+		 	update_date updateDate,
+		 	create_date createDate
+		 FROM member
+		 ORDER BY create_date DESC
+		 LIMIT ?, ?
+		 */
+		
+		return list;
+	}
+	
+	// [비회원]
 	public void insertMember(Member member) throws ClassNotFoundException, SQLException {
 		
 		System.out.println(member.getMemberId()+"<<memberId");
@@ -35,6 +62,8 @@ public class MemberDao {
 		stmt.close();
 		conn.close();
 	}
+	
+	// [회원]
 	public Member login(Member member) throws ClassNotFoundException, SQLException {
 		Member returnMember = null;
 		/*
