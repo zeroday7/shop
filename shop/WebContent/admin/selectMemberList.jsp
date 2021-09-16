@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
 <%@ page import="java.util.*" %>
@@ -68,37 +67,52 @@
 			 	<th>memberGender</th>
 			 	<th>updateDate</th>
 			 	<th>createDate</th>
+			 	<th>등급수정</th>
+			 	<th>비밀번호수정</th>
+			 	<th>강제탈퇴</th>
 			</tr>
 		</thead>
 		<tbody>
 			<%
-				for(Member m : memberList){
+			for(Member m : memberList){
 			%>
-					<tr>
-						<td><%=m.getMemberNo()%></td>
-						<td><%=m.getMemberId()%></td>
-						<td>
-							<%=m.getMemberLevel() %>
-							<%	//level이 0,1로 출력되니 일반 회원,관리자 계정으로 출력되도록 함
-								if(m.getMemberLevel()==0){
-							%>
-									<span>일반 회원</span>
-							<%
-								}else if(m.getMemberLevel()==1){
-							%>
-									<span>관리자 계정</span>
-							<%
-								}
-							%>
-						</td>
-						<td><%=m.getMemberName()%></td>
-						<td><%=m.getMemberAge()%></td>
-						<td><%=m.getMemberGender()%></td>
-						<td><%=m.getUpdateDate()%></td>
-						<td><%=m.getCreateDate()%></td>
-					</tr>
+			<tr>
+				<td><%=m.getMemberNo()%></td>
+				<td><%=m.getMemberId()%></td>
+				<td>
+					<%	//level이 0,1로 출력되니 일반 회원,관리자 계정으로 출력되도록 함
+						if(m.getMemberLevel()==0){
+					%>
+							<span>일반 회원</span>
+					<%
+						}else if(m.getMemberLevel()==1){
+					%>
+							<span>관리자 계정</span>
+					<%
+						}
+					%>
+					(<%=m.getMemberLevel()%>)
+				</td>
+				<td><%=m.getMemberName()%></td>
+				<td><%=m.getMemberAge()%></td>
+				<td><%=m.getMemberGender()%></td>
+				<td><%=m.getUpdateDate()%></td>
+				<td><%=m.getCreateDate()%></td>
+				<td>
+					<!-- 특정회원의 등급을 수정 -->
+					<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>">등급수정</a>
+				</td>
+			 	<td>
+			 		<!-- 특정회원의 비밀번호를 수정 -->
+			 		<a href="<%=request.getContextPath()%>/admin/updateMemberPwForm.jsp?memberNo=<%=m.getMemberNo()%>">비밀번호수정</a>
+			 	</td>
+			 	<td>
+			 		<!-- 특정회원을 강제 탈퇴 -->
+			 		<a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberNo=<%=m.getMemberNo()%>">강제탈퇴</a>
+			 	</td>
+			</tr>
 			<%	
-				}
+			}
 			%>
 		</tbody>
 	</table>
